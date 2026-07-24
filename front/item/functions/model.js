@@ -19,16 +19,27 @@ directives.Fn('item.model', function(phase, carried)
         }
     };
 
+    this.tick = (node, value) =>
+    {
+        node.checked = Boolean(value);
+        node.toggleAttribute('checked', Boolean(value));
+    };
+
     this.draw = (node, value) =>
     {
         if(node.type === 'checkbox')
         {
-            node.checked = Boolean(value);
+            return this.tick(node, value);
+        }
 
+        if(value === undefined || value === null)
+        {
             return;
         }
 
-        if(value !== undefined && value !== null && node.value !== String(value))
+        node.setAttribute('value', value);
+
+        if(node.value !== String(value))
         {
             node.value = value;
         }
