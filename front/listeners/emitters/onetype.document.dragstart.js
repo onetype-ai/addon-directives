@@ -2,5 +2,7 @@
 
 onetype.emitters.catch('onetype.document.dragstart', (event) =>
 {
+    directives.Fn('item.sort', 'grab', event);
+
     directives.Fn('do.dispatch', event, 'otDragstart');
 });

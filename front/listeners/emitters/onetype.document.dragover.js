@@ -2,5 +2,7 @@
 
 onetype.emitters.catch('onetype.document.dragover', (event) =>
 {
+    directives.Fn('item.sort', 'over', event);
+
     directives.Fn('do.dispatch', event, 'otDragover');
 });

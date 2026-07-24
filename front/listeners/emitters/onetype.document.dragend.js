@@ -2,5 +2,7 @@
 
 onetype.emitters.catch('onetype.document.dragend', (event) =>
 {
+    directives.Fn('item.sort', 'release', event);
+
     directives.Fn('do.dispatch', event, 'otDragend');
 });
