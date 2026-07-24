@@ -1,0 +1,13 @@
+{
+    "name": "@onetype/addon-directives",
+    "version": "0.1.0",
+    "type": "module",
+    "imports": {
+        "#directives/*": "./*"
+    },
+    "exports": {
+        ".": "./back/load.js",
+        "./*": "./*"
+    },
+    "main": "./back/load.js"
+}

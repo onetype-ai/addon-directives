@@ -1,0 +1,13 @@
+{
+    "type": "addon",
+    "slug": "onetype/addon/directives",
+    "name": "Directives",
+    "description": "The template language of the front, the ot- vocabulary, if, for, show, slot, text, html, events and forms, processed during render compilation.",
+    "icon": "bolt",
+    "color": "rgba(168, 85, 247, 1)",
+    "status": "enabled",
+    "depends": [],
+    "supports": [
+        "onetype/addon/canon"
+    ]
+}
