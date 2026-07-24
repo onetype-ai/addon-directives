@@ -5,4 +5,5 @@ onetype.emitters.catch('onetype.addon.render.compile.after', (item, compile, nod
     compile.identifier = identifier;
 
     directives.Fn('do.process', 'after', compile, node);
+    directives.Fn('item.teleport.land');
 });

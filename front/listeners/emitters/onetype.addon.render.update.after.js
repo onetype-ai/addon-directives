@@ -3,4 +3,5 @@
 onetype.emitters.catch('onetype.addon.render.update.after', () =>
 {
     directives.Fn('item.flip', 'play');
+    directives.Fn('item.teleport.sweep');
 });
