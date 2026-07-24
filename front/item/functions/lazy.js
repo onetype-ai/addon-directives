@@ -2,11 +2,6 @@
 
 directives.Fn('item.lazy', function(mark, compile, node)
 {
-    if(!directives.StoreHas('lazy'))
-    {
-        directives.StoreSet('lazy', new Set());
-    }
-
     this.reveal = (html) =>
     {
         const paused = compile.children;
@@ -23,6 +18,11 @@ directives.Fn('item.lazy', function(mark, compile, node)
         compile.children = paused;
         node.removeAttribute('ot-skip');
     };
+
+    if(!directives.StoreHas('lazy'))
+    {
+        directives.StoreSet('lazy', new Set());
+    }
 
     const key = compile.render.Name + ':' + mark;
     const seen = directives.StoreGet('lazy');

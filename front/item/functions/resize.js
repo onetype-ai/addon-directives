@@ -9,16 +9,6 @@ directives.Fn('item.resize', function(phase, event)
         bottom: 'row-resize'
     };
 
-    if(!directives.StoreHas('resize'))
-    {
-        directives.StoreSet('resize', {
-            active: null,
-            hovered: null
-        });
-    }
-
-    const state = directives.StoreGet('resize');
-
     this.measure = (event) =>
     {
         const along = (edge, base, moved, grow) =>
@@ -130,6 +120,16 @@ directives.Fn('item.resize', function(phase, event)
 
         state.active = null;
     };
+
+    if(!directives.StoreHas('resize'))
+    {
+        directives.StoreSet('resize', {
+            active: null,
+            hovered: null
+        });
+    }
+
+    const state = directives.StoreGet('resize');
 
     if(phase === 'grab')
     {

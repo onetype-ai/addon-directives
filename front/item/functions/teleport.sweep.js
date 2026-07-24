@@ -2,11 +2,6 @@
 
 directives.Fn('item.teleport.sweep', function()
 {
-    if(!directives.StoreHas('teleports'))
-    {
-        return;
-    }
-
     this.anchors = () =>
     {
         const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_COMMENT);
@@ -36,6 +31,11 @@ directives.Fn('item.teleport.sweep', function()
             }
         }
     };
+
+    if(!directives.StoreHas('teleports'))
+    {
+        return;
+    }
 
     const taken = directives.StoreGet('teleports');
 

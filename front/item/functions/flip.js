@@ -2,13 +2,6 @@
 
 directives.Fn('item.flip', function(phase)
 {
-    if(!directives.StoreHas('flips'))
-    {
-        return;
-    }
-
-    const flips = directives.StoreGet('flips');
-
     this.snapshot = (container) =>
     {
         const rects = new Map();
@@ -93,6 +86,13 @@ directives.Fn('item.flip', function(phase)
             phase === 'snapshot' ? this.snapshot(container) : this.play(container);
         }
     };
+
+    if(!directives.StoreHas('flips'))
+    {
+        return;
+    }
+
+    const flips = directives.StoreGet('flips');
 
     this.sweep();
 });

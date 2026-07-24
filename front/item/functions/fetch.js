@@ -2,10 +2,6 @@
 
 directives.Fn('item.fetch', function(data, compile, node)
 {
-    const config = directives.Fn('item.fetch.make', data, compile, node);
-
-    config.html = node.innerHTML;
-
     this.state = () =>
     {
         compile.data[config.bind] = {
@@ -84,6 +80,10 @@ directives.Fn('item.fetch', function(data, compile, node)
         node.replaceWith(fragment);
         compile.render.Update();
     };
+
+    const config = directives.Fn('item.fetch.make', data, compile, node);
+
+    config.html = node.innerHTML;
 
     if(compile.data[config.bind] && compile.data[config.bind].fetched)
     {

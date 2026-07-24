@@ -2,18 +2,6 @@
 
 directives.Fn('item.teleport.land', function()
 {
-    if(!directives.StoreHas('teleports.pending'))
-    {
-        return;
-    }
-
-    if(!directives.StoreHas('teleports'))
-    {
-        directives.StoreSet('teleports', new Map());
-    }
-
-    const taken = directives.StoreGet('teleports');
-
     this.arrive = (pending) =>
     {
         const anchor = document.createComment('ot-teleport:' + pending.key);
@@ -53,6 +41,18 @@ directives.Fn('item.teleport.land', function()
         taken.delete(pending.key);
         this.arrive(pending);
     };
+
+    if(!directives.StoreHas('teleports.pending'))
+    {
+        return;
+    }
+
+    if(!directives.StoreHas('teleports'))
+    {
+        directives.StoreSet('teleports', new Map());
+    }
+
+    const taken = directives.StoreGet('teleports');
 
     const pending = directives.StoreGet('teleports.pending');
 
