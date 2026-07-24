@@ -33,6 +33,16 @@ Three binding forms share the grammar:
 - `ot-for` reads `row in rows`, with an optional index as `row, place in rows`. Rows key themselves by `row.id` when the value carries one; write `ot-key` yourself only when there is no id. The loop goes ON the repeated element, never on its parent.
 - `ot-show` toggles visibility without touching the tree.
 
+## Binding
+
+```html
+<input ot-model="user.email">
+<input type="checkbox" ot-model="settings.dark">
+<input type="number" ot-model="filters.limit">
+```
+
+`ot-model` binds an input to a name in the data both ways: the state draws the input, typing writes the state, dotted paths reach into objects. Checkboxes carry booleans, number inputs carry numbers, everything else carries the string.
+
 ## Events
 
 ```html
@@ -74,6 +84,16 @@ The expression resolves to a handler function which receives `{ event }`, value 
 
 - `<ot-fetch>` calls the url and binds `{ response, error, loading, success }` under the `bind` key, then compiles its content.
 - `<ot-form>` wraps its content in a real form, submits as json, and binds `{ data, message, code, loading }`. `_submit` runs before the call and may cancel with `false`, `_success` and `_error` run after, `reset` clears the form, `redirect` visits a path.
+
+## Placement
+
+```html
+<div class="modal" ot-if="open" ot-teleport="body">...</div>
+<section ot-lazy="gallery">heavy content</section>
+```
+
+- `ot-teleport` renders the node at another place in the document, by default at the end of the body, while it keeps living from the data of its render: modals, dropdowns and tooltips escape every overflow. When its condition falls the node leaves the far place too.
+- `ot-lazy` holds the content of the node back until it approaches the viewport, then compiles it with the live data. The value is a mark, unique within the render.
 
 ## Motion
 
@@ -147,7 +167,7 @@ The laws of a directive:
 
 ## Order
 
-Directives run per node, sorted ascending: `ot-for` 90 expands first, `ot-if` 100 decides, `ot-show` 110, slots 160, `ot-flip` 300, `ot-sort` 400, events 500, fetch 650, form 660, text and html 700 and 750, render 1000, base 2000. A directive that removes its node stops the chain.
+Directives run per node, sorted ascending: `ot-for` 90 expands first, `ot-if` 100 decides, `ot-show` 110, slots 160, `ot-lazy` 200, `ot-flip` 300, `ot-sort` 400, `ot-model` 450, events 500, fetch 650, form 660, text and html 700 and 750, render 1000, `ot-teleport` 1500, base 2000. A directive that removes its node stops the chain.
 
 ## Guarantees
 
