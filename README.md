@@ -75,6 +75,28 @@ The expression resolves to a handler function which receives `{ event }`, value 
 - `<ot-fetch>` calls the url and binds `{ response, error, loading, success }` under the `bind` key, then compiles its content.
 - `<ot-form>` wraps its content in a real form, submits as json, and binds `{ data, message, code, loading }`. `_submit` runs before the call and may cancel with `false`, `_success` and `_error` run after, `reset` clears the form, `redirect` visits a path.
 
+## Motion
+
+```html
+<div class="grid" :ot-flip="420">
+    <div class="card" ot-for="card in cards">{{ card.label }}</div>
+</div>
+```
+
+`ot-flip` on a container animates its children across re-renders: a reorder travels, a newcomer scales in, a filter slides the survivors into place. The value is the duration in milliseconds, left out it rides at 320. No library, no keyframes, one attribute.
+
+```html
+<li ot-for="task in tasks" ot-sort="tasks">{{ task.title }}</li>
+```
+
+`ot-sort` rides the repeated node and names the array it was born from: dragging the node reorders that array live while the pointer moves, the rows around it travel through `ot-flip` on the container, and the data is already in its final order when the drag ends. The dragged node carries the class `ot-sorting` for its ghost look.
+
+```html
+<li ot-for="task in tasks" ot-sort="tasks" ot-sorted="save">{{ task.title }}</li>
+```
+
+`ot-sorted` names the handler that runs once when a drag lands in a genuinely new order, receiving `{ list, key }`, the reordered array and the id of the dragged row. That is the moment to persist: `this.save = (got) => { commands.run('tasks:reorder', { order: got.list.map((row) => row.id) }); };`
+
 ## Mechanics
 
 - `ot-resize` makes a node resizable by its edges, with `onResizing` live and `onResize` on release.
@@ -119,11 +141,13 @@ The laws of a directive:
 - The code may only read attributes it declared, `data['ot-x']` with an undeclared name is a violation.
 - Never `document.addEventListener` inside a directive. The framework fires `onetype.document.<event>` for every DOM event; the directive sets a handler property on the node in `code`, and a listener file in `front/listeners/emitters/onetype.document.<event>.js` catches the emitter and walks to the owner, like the built in event directives do.
 - Long machinery does not live in the item, it lives as an `item.*` function of the addon in `front/item/functions/`, and the item calls `directives.Fn('item.name', ...)`.
-- Timers and observers a directive starts must die with the node, tie them to the removal of the node, never leak.
+- Timers and observers a directive starts must die with the node, tie them to the removal of the node, never leak. A node-level `node.addEventListener` is fine, it dies with the node.
+- A directive that owns the content of its node marks it `ot-skip`, the patch then leaves the whole node alone across re-renders.
+- A static attribute is always a string; a typed value binds through the `:` form, `:ot-clock="3"` arrives as a number.
 
 ## Order
 
-Directives run per node, sorted ascending: `ot-for` 90 expands first, `ot-if` 100 decides, `ot-show` 110, slots 160, events 500, fetch 650, form 660, text and html 700 and 750, render 1000, base 2000. A directive that removes its node stops the chain.
+Directives run per node, sorted ascending: `ot-for` 90 expands first, `ot-if` 100 decides, `ot-show` 110, slots 160, `ot-flip` 300, `ot-sort` 400, events 500, fetch 650, form 660, text and html 700 and 750, render 1000, base 2000. A directive that removes its node stops the chain.
 
 ## Guarantees
 
