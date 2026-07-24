@@ -2,5 +2,7 @@
 
 onetype.emitters.catch('onetype.document.input', (event) =>
 {
+    directives.Fn('item.model', 'pour', { target: event.target });
+
     directives.Fn('do.dispatch', event, 'otInput');
 });

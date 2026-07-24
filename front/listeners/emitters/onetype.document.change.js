@@ -2,5 +2,7 @@
 
 onetype.emitters.catch('onetype.document.change', (event) =>
 {
+    directives.Fn('item.model', 'pour', { target: event.target });
+
     directives.Fn('do.dispatch', event, 'otChange');
 });
