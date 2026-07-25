@@ -2,6 +2,8 @@
 
 const directives = onetype.Addon('directives', (addon) =>
 {
+    addon.Description('The directive vocabulary itself, one item per attribute the engine knows how to read.');
+
     addon.Field('id', {
         type: 'string',
         required: true,
