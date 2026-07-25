@@ -79,7 +79,7 @@ directives.Fn('do.process', function(trigger, compile, node)
             const tag = node.tagName ? node.tagName.toLowerCase() : 'text';
             const name = directive.item.Get('id');
 
-            onetype.Error(500, '<:tag:> directive ":name:" — :reason:', { tag, name, reason: error.message });
+            onetype.Error(500, '<:tag:> directive ":name:": :reason:', { tag, name, reason: error.message });
         }
     };
 

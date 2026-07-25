@@ -70,7 +70,7 @@ directives.Fn('get.attributes', function(attributes, node, compile)
             expression: attribute.original.value
         };
 
-        onetype.Error(400, '<:tag:> :attribute: — :reason:', context);
+        onetype.Error(400, '<:tag:> :attribute:: :reason:', context);
 
         attribute.value = null;
     };
@@ -104,7 +104,7 @@ directives.Fn('get.attributes', function(attributes, node, compile)
             reason: error.message
         };
 
-        onetype.Error(400, '<:tag:> :path: — :reason:', context);
+        onetype.Error(400, '<:tag:> :path:: :reason:', context);
 
         attribute.value = null;
     };

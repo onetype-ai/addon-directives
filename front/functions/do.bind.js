@@ -50,7 +50,7 @@ directives.Fn('do.bind', function(node, compile)
                 expression: attribute.value
             };
 
-            onetype.Error(500, '<:tag:> :attribute: — :reason:', context);
+            onetype.Error(500, '<:tag:> :attribute:: :reason:', context);
         }
 
         node.removeAttribute(attribute.name);
