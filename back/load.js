@@ -8,4 +8,12 @@ import '#directives/back/items/onetype/assets/directives.js';
 import '#directives/back/items/canon/patterns/directives.js';
 import '#directives/back/items/canon/placements/directives.js';
 
+import '#directives/back/items/tests/back/claims.js';
+import '#directives/back/items/tests/back/ships.js';
+import '#directives/back/items/tests/front/binds.js';
+import '#directives/back/items/tests/front/events.js';
+import '#directives/back/items/tests/front/fetches.js';
+import '#directives/back/items/tests/front/flows.js';
+import '#directives/back/items/tests/front/loops.js';
+
 export default directives;

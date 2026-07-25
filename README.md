@@ -169,8 +169,26 @@ The laws of a directive:
 
 Directives run per node, sorted ascending: `ot-for` 90 expands first, `ot-if` 100 decides, `ot-show` 110, slots 160, `ot-lazy` 200, `ot-flip` 300, `ot-sort` 400, `ot-model` 450, events 500, fetch 650, form 660, text and html 700 and 750, render 1000, `ot-teleport` 1500, base 2000. A directive that removes its node stops the chain.
 
+## What the tests hold it to
+
+With `@onetype/addon-tests` present, seven tests register under `back/items/tests/`:
+
+| Test | Holds |
+| --- | --- |
+| `back/claims` | The pattern and the placement handed to canon stand, and assets carries the front once. |
+| `back/ships` | Every directive is a file of its own opening on the order it runs at, shipped once, and obeying the canon. |
+| `front/flows` | `ot-if` takes the node out of the dom, `ot-show` only hides it, and both read an expression. |
+| `front/loops` | `ot-for` multiplies and keys each row, binds an index beside the value, nests, and renders nothing over nothing. |
+| `front/binds` | A moustache prints, a colon attribute computes, and the binding leaves the markup once it is read. |
+| `front/events` | A click and an input reach their handler, `ot-model` walks both ways, and the directive is consumed. |
+| `front/fetches` | `ot-fetch` calls the endpoint it names and binds the answer, and `ot-html` writes markup where a moustache prints. |
+
+Run them with `tests.run('directives')`.
+
+One thing to know when reading a test through `happy-dom`: an attribute carrying a colon makes that DOM refuse every later write to `class` on the same node, so a static `class` beside a `:class` reads as the static part alone there. Browsers merge them as the binding section describes; only the test DOM does not.
+
 ## Guarantees
 
 - Declared attributes are typed: every directive attribute passes the schema of its define, wrong shapes report loudly and fall to null.
 - Attributes are consumed: after the walk no `ot-*` or `:` attribute remains in the DOM.
-- Errors never break the walk: a directive that throws reports `<tag> directive "name" — reason` and the render carries on.
+- Errors never break the walk: a directive that throws reports `<tag> directive "name": reason` and the render carries on.
